@@ -3,7 +3,7 @@ export const config = {
   title: 'Python Full Stack Engineer',
   email: 'mdevi.bala@hotmail.com',
   linkedin: 'https://www.linkedin.com/in/mdevibala',
-  // github: 'https://github.com/replace-me',
+  github: 'https://github.com/DevDeviBala/',
   resumeUrl: '/DeviBala_Python_FullStack_Developer.pdf',
-  // siteUrl: 'https://example.com',
+  siteUrl: 'https://example.com',
 } as const;

@@ -1,4 +1,4 @@
-import { config } from '@/lib/config';
+import { config } from "@/lib/config";
 
 export default function Contact() {
   return (
@@ -24,8 +24,8 @@ export default function Contact() {
             <div className="p-6">
               <p className="max-w-[52ch] text-[0.98rem] leading-[1.75] text-text-muted">
                 I&apos;m interested in backend engineering, platform
-                engineering, automation, data-driven systems, and
-                challenging product problems.
+                engineering, automation, data-driven systems, and challenging
+                product problems.
               </p>
               <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-success/30 bg-success/5 px-3 py-1 font-mono text-[0.72rem] text-success">
                 <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
@@ -56,14 +56,14 @@ export default function Contact() {
             >
               LinkedIn
             </a>
-            {/* <a
+            <a
               href={config.github}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded border border-line px-6 py-3 font-medium text-[0.92rem] text-text transition-colors hover:border-py-blue hover:text-py-blue-bright"
             >
               GitHub
-            </a> */}
+            </a>
           </div>
         </div>
       </div>
