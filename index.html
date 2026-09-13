@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devi Bala M — Python Full Stack Engineer</title>
+<meta name="description" content="Python Full Stack Engineer building backend systems, APIs, automation workflows, integrations, and data-driven platforms.">
+<meta property="og:title" content="Devi Bala M — Python Full Stack Engineer">
+<meta property="og:description" content="Backend-focused engineer building scalable APIs, automation systems, integrations, and data-driven platforms.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A0E12">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A0E12;
+    --surface:#101720;
+    --surface-2:#151E29;
+    --line:#223040;
+    --text:#E7EDF2;
+    --text-muted:#8CA0AF;
+    --text-faint:#5B6C7A;
+    --trace:#6FE4C6;
+    --trace-dim:#2E4A44;
+    --redline:#E8935A;
+    --redline-dim:#4A362A;
+    --radius:3px;
+    --serif: 'Fraunces', serif;
+    --sans: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--trace-dim); color:var(--text);}
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  @media (max-width:640px){.wrap{padding:0 20px;}}
+
+  h1,h2,h3,h4{font-family:var(--serif); font-weight:500; margin:0; letter-spacing:-0.01em;}
+  h2{font-size:clamp(1.7rem,3.4vw,2.4rem); color:var(--text);}
+  h3{font-size:1.3rem;}
+  p{margin:0;}
+  .muted{color:var(--text-muted);}
+  .faint{color:var(--text-faint);}
+
+  .mono{font-family:var(--mono); font-size:0.82rem; letter-spacing:0.01em;}
+
+  :focus-visible{outline:2px solid var(--trace); outline-offset:3px;}
+
+  /* ---------- Nav ---------- */
+  header.site-nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,14,18,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .nav-name{font-family:var(--serif); font-size:1.05rem; color:var(--text); text-decoration:none;}
+  .nav-links{display:flex; align-items:center; gap:30px; list-style:none; margin:0; padding:0;}
+  .nav-links a{text-decoration:none; color:var(--text-muted); font-size:0.94rem; transition:color .15s;}
+  .nav-links a:hover{color:var(--text);}
+  .status-pill{
+    display:flex; align-items:center; gap:7px;
+    font-family:var(--mono); font-size:0.75rem; color:var(--trace);
+    border:1px solid var(--trace-dim); border-radius:20px; padding:5px 12px;
+  }
+  .status-dot{width:6px; height:6px; border-radius:50%; background:var(--trace); box-shadow:0 0 0 0 rgba(111,228,198,.6); animation:pulse 2.4s infinite;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(111,228,198,.45);}
+    70%{box-shadow:0 0 0 7px rgba(111,228,198,0);}
+    100%{box-shadow:0 0 0 0 rgba(111,228,198,0);}
+  }
+  .nav-toggle{display:none; background:none; border:1px solid var(--line); color:var(--text); border-radius:var(--radius); padding:6px 10px; font-size:1.1rem; cursor:pointer;}
+  @media (max-width:820px){
+    .nav-links{position:fixed; top:64px; left:0; right:0; background:var(--surface); border-bottom:1px solid var(--line);
+      flex-direction:column; align-items:flex-start; gap:0; padding:6px 20px 16px; transform:translateY(-8px); opacity:0; pointer-events:none; transition:all .18s;}
+    .nav-links.open{transform:translateY(0); opacity:1; pointer-events:auto;}
+    .nav-links a{padding:12px 0; width:100%; border-bottom:1px solid var(--line);}
+    .nav-toggle{display:block;}
+    .status-pill{display:none;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{padding:96px 0 72px; border-bottom:1px solid var(--line); position:relative; overflow:hidden;}
+  .hero-grid{display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;}
+  @media (max-width:940px){.hero-grid{grid-template-columns:1fr;}}
+  .hero-eyebrow{font-family:var(--mono); font-size:0.8rem; color:var(--trace); margin-bottom:18px; display:block;}
+  .hero h1{font-size:clamp(2.1rem,4.6vw,3.4rem); line-height:1.12; color:var(--text); max-width:14ch;}
+  .hero p.lede{margin-top:22px; font-size:1.08rem; color:var(--text-muted); max-width:46ch;}
+  .hero-meta{display:flex; gap:28px; margin-top:34px; flex-wrap:wrap;}
+  .hero-meta .stat{border-left:2px solid var(--trace-dim); padding-left:12px;}
+  .hero-meta .stat b{display:block; font-family:var(--serif); font-size:1.5rem; color:var(--text);}
+  .hero-meta .stat span{font-size:0.82rem; color:var(--text-faint);}
+  .badge-row{display:flex; flex-wrap:wrap; gap:8px; margin-top:30px;}
+  .badge{font-family:var(--mono); font-size:0.76rem; color:var(--text-muted); border:1px solid var(--line); border-radius:20px; padding:5px 11px; background:var(--surface);}
+  .cta-row{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--sans); font-weight:600; font-size:0.94rem; text-decoration:none;
+    padding:12px 22px; border-radius:var(--radius); cursor:pointer; border:1px solid transparent;
+    display:inline-flex; align-items:center; gap:8px; transition:transform .12s, border-color .15s, background .15s;
+  }
+  .btn-primary{background:var(--trace); color:#06110E;}
+  .btn-primary:hover{transform:translateY(-1px); background:#82f0d6;}
+  .btn-secondary{border-color:var(--line); color:var(--text);}
+  .btn-secondary:hover{border-color:var(--trace-dim); color:var(--trace);}
+
+  .hero-diagram{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:22px 18px;}
+  .hero-diagram .cap{font-family:var(--mono); font-size:0.72rem; color:var(--text-faint); margin-bottom:14px;}
+
+  /* ---------- Sections shared ---------- */
+  section{padding:88px 0;}
+  section.divider{border-bottom:1px solid var(--line);}
+  .section-head{max-width:640px; margin-bottom:48px;}
+  .section-kicker{font-family:var(--mono); font-size:0.78rem; color:var(--redline); display:block; margin-bottom:10px;}
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px;}
+  @media (max-width:860px){.about-grid{grid-template-columns:1fr;}}
+  .about-copy p{margin-bottom:16px; color:var(--text-muted); font-size:1.02rem;}
+  .about-copy p:last-child{margin-bottom:0;}
+  .focus-list{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:10px 18px;}
+  .focus-list li{font-family:var(--mono); font-size:0.85rem; color:var(--text); border-left:2px solid var(--line); padding:6px 0 6px 12px;}
+
+  /* ---------- Experience ---------- */
+  .exp-card{border:1px solid var(--line); border-radius:6px; padding:30px 28px; background:var(--surface);}
+  .exp-top{display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; margin-bottom:6px;}
+  .exp-role{font-family:var(--serif); font-size:1.25rem;}
+  .exp-time{font-family:var(--mono); font-size:0.8rem; color:var(--text-faint);}
+  .exp-org{color:var(--text-muted); margin-bottom:20px; display:block;}
+  .exp-list{margin:0; padding-left:18px; color:var(--text-muted); display:grid; gap:9px;}
+  .exp-list li::marker{color:var(--trace);}
+  .exp-lead{margin-top:22px; padding-top:20px; border-top:1px dashed var(--line);}
+  .exp-lead-tag{font-family:var(--mono); font-size:0.74rem; color:var(--redline); display:block; margin-bottom:8px;}
+
+  /* ---------- Projects ---------- */
+  .project-card{border:1px solid var(--line); border-radius:6px; background:var(--surface); margin-bottom:22px; overflow:hidden;}
+  .project-head{
+    display:grid; grid-template-columns:auto 1fr auto; gap:22px; align-items:center;
+    padding:26px 26px; cursor:pointer; background:none; border:none; width:100%; text-align:left; color:inherit; font-family:inherit;
+  }
+  .project-num{font-family:var(--mono); font-size:0.85rem; color:var(--text-faint);}
+  .project-cat{font-family:var(--mono); font-size:0.74rem; color:var(--trace); display:block; margin-bottom:8px;}
+  .project-title{font-family:var(--serif); font-size:1.4rem; margin-bottom:6px;}
+  .project-desc{color:var(--text-muted); font-size:0.95rem; max-width:62ch;}
+  .project-toggle{
+    width:34px; height:34px; border-radius:50%; border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+    font-size:1.1rem; color:var(--text-muted); flex-shrink:0; transition:transform .2s, border-color .2s;
+  }
+  .project-head[aria-expanded="true"] .project-toggle{transform:rotate(45deg); border-color:var(--trace-dim); color:var(--trace);}
+  .project-body{max-height:0; overflow:hidden; transition:max-height .35s ease;}
+  .project-body-inner{padding:0 26px 32px;}
+  .impact-strip{display:flex; gap:24px; flex-wrap:wrap; padding:16px 20px; background:var(--surface-2); border:1px solid var(--line); border-radius:6px; margin-bottom:26px;}
+  .impact-strip .item b{display:block; font-family:var(--serif); font-size:1.3rem; color:var(--trace);}
+  .impact-strip .item span{font-size:0.78rem; color:var(--text-faint);}
+
+  .cs-tabs{display:flex; gap:4px; flex-wrap:wrap; border-bottom:1px solid var(--line); margin-bottom:22px;}
+  .cs-tab{
+    font-family:var(--mono); font-size:0.78rem; color:var(--text-faint); background:none; border:none;
+    padding:9px 4px; margin-right:18px; cursor:pointer; border-bottom:2px solid transparent; transition:color .15s, border-color .15s;
+  }
+  .cs-tab:hover{color:var(--text-muted);}
+  .cs-tab.active{color:var(--trace); border-bottom-color:var(--trace);}
+  .cs-panel{display:none; animation:fadein .25s ease;}
+  .cs-panel.active{display:block;}
+  @keyframes fadein{from{opacity:0;} to{opacity:1;}}
+  .cs-panel p{color:var(--text-muted); margin-bottom:14px; max-width:70ch;}
+  .cs-panel p:last-child{margin-bottom:0;}
+  .cs-panel ul{margin:0 0 0 18px; padding:0; color:var(--text-muted); display:grid; gap:8px;}
+  .cs-panel ul li::marker{color:var(--redline);}
+  .role-callout{border-left:2px solid var(--trace); padding:12px 16px; background:var(--surface-2); border-radius:0 4px 4px 0; margin-top:16px; font-size:0.92rem; color:var(--text-muted);}
+  .role-callout b{color:var(--text);}
+
+  .diagram-wrap{margin:8px 0 26px; border:1px solid var(--line); border-radius:6px; padding:20px 16px; background:var(--surface-2); overflow-x:auto;}
+  .diagram-wrap svg{display:block; margin:0 auto; max-width:100%; height:auto;}
+  .diagram-caption{font-family:var(--mono); font-size:0.72rem; color:var(--text-faint); text-align:center; margin-top:10px;}
+  .flow-path{stroke-dasharray:6 5; stroke-dashoffset:0; transition:stroke-dashoffset 1.2s ease;}
+  .flow-path.animate{animation:dash 1.6s ease forwards;}
+  @keyframes dash{from{stroke-dashoffset:220;} to{stroke-dashoffset:0;}}
+
+  .concept-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin-bottom:26px;}
+  .concept-card{border:1px solid var(--line); border-radius:6px; padding:16px; background:var(--surface-2);}
+  .concept-card b{display:block; font-size:0.92rem; margin-bottom:6px; color:var(--text);}
+  .concept-card span{font-size:0.85rem; color:var(--text-muted);}
+
+  .tech-tags{display:flex; flex-wrap:wrap; gap:8px;}
+  .tech-tags span{font-family:var(--mono); font-size:0.76rem; color:var(--text-muted); border:1px solid var(--line); border-radius:4px; padding:4px 9px;}
+
+  .illustrative-tag{font-family:var(--mono); font-size:0.68rem; color:var(--redline); border:1px dashed var(--redline-dim); border-radius:4px; padding:2px 8px; display:inline-block; margin-bottom:10px;}
+
+  .compliance-selector{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px;}
+  .compliance-chip{
+    font-family:var(--mono); font-size:0.78rem; padding:8px 14px; border-radius:20px; border:1px solid var(--line);
+    background:none; color:var(--text-muted); cursor:pointer; transition:all .15s;
+  }
+  .compliance-chip.active{border-color:var(--trace); color:var(--trace); background:var(--trace-dim);}
+  .compliance-detail{border:1px solid var(--line); border-radius:6px; padding:20px; background:var(--surface-2);}
+  .compliance-detail h4{font-family:var(--sans); font-weight:700; font-size:1rem; margin-bottom:8px; color:var(--text);}
+
+  .mini-chart{display:flex; align-items:flex-end; gap:6px; height:90px; margin-top:14px;}
+  .mini-chart .bar{flex:1; background:linear-gradient(to top, var(--trace-dim), var(--trace)); border-radius:2px 2px 0 0;}
+
+  /* ---------- Approach ---------- */
+  .principle-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:6px; overflow:hidden;}
+  @media (max-width:860px){.principle-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:520px){.principle-grid{grid-template-columns:1fr;}}
+  .principle{background:var(--surface); padding:26px 22px;}
+  .principle .idx{font-family:var(--mono); font-size:0.78rem; color:var(--redline); display:block; margin-bottom:14px;}
+  .principle h3{font-size:1.05rem; margin-bottom:10px; font-family:var(--sans); font-weight:700;}
+  .principle p{color:var(--text-muted); font-size:0.9rem;}
+
+  /* ---------- Skills ---------- */
+  .skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media (max-width:820px){.skills-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:520px){.skills-grid{grid-template-columns:1fr;}}
+  .skill-group h4{font-family:var(--mono); font-size:0.78rem; color:var(--trace); margin-bottom:14px; font-weight:400;}
+  .skill-group ul{list-style:none; margin:0; padding:0; display:grid; gap:8px;}
+  .skill-group li{font-size:0.92rem; color:var(--text-muted); padding-bottom:8px; border-bottom:1px solid var(--line);}
+
+  /* ---------- Contact ---------- */
+  .contact-inner{text-align:left; max-width:640px;}
+  .contact-inner h2{margin-bottom:16px;}
+  .contact-inner p.lede{color:var(--text-muted); font-size:1.05rem; max-width:52ch; margin-bottom:34px;}
+  .contact-btns{display:flex; gap:14px; flex-wrap:wrap;}
+
+  footer{border-top:1px solid var(--line); padding:34px 0; text-align:center;}
+  footer p{font-family:var(--mono); font-size:0.78rem; color:var(--text-faint);}
+
+  .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;}
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="nav-name">Devi Bala</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" id="navToggle">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#engineering">Engineering</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <span class="status-pill"><span class="status-dot"></span>Open to opportunities</span>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="hero-eyebrow">Python Full Stack Engineer / 3+ years</span>
+        <h1>I build backend systems that solve real business problems.</h1>
+        <p class="lede">Backend-focused engineer building scalable APIs, automation systems, integrations, and data-driven platforms — for CAD workflows, digital fulfillment, and maritime compliance.</p>
+        <div class="badge-row" aria-label="Core technologies">
+          <span class="badge">Python</span><span class="badge">Django</span><span class="badge">FastAPI</span>
+          <span class="badge">REST</span><span class="badge">GraphQL</span><span class="badge">MySQL</span>
+          <span class="badge">MongoDB</span><span class="badge">Redis</span><span class="badge">Celery</span><span class="badge">React</span>
+        </div>
+        <div class="hero-meta">
+          <div class="stat"><b>3+</b><span>Years experience</span></div>
+          <div class="stat"><b>4</b><span>Production systems shipped</span></div>
+          <div class="stat"><b>1</b><span>Engineer → project lead</span></div>
+        </div>
+        <div class="cta-row">
+          <a href="#work" class="btn btn-primary">View my work</a>
+          <a href="#contact" class="btn btn-secondary">Contact me</a>
+        </div>
+      </div>
+
+      <div class="hero-diagram">
+        <span class="cap">// how a request moves through a system I build</span>
+        <svg viewBox="0 0 320 420" role="img" aria-label="Diagram: External systems flow through APIs and webhooks into a Python backend, then databases and queues, then business logic, then dashboards and automation.">
+          <defs>
+            <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M0,0 L8,4 L0,8 z" fill="#5B6C7A"/>
+            </marker>
+          </defs>
+          <g font-family="JetBrains Mono" font-size="11" fill="#E7EDF2">
+            <rect x="20" y="10" width="280" height="42" rx="3" fill="#151E29" stroke="#223040"/>
+            <text x="160" y="36" text-anchor="middle">External Systems</text>
+
+            <line x1="160" y1="52" x2="160" y2="82" stroke="#5B6C7A" marker-end="url(#arrow)"/>
+
+            <rect x="20" y="84" width="280" height="42" rx="3" fill="#151E29" stroke="#223040"/>
+            <text x="160" y="110" text-anchor="middle">APIs / Webhooks / Data</text>
+
+            <line x1="160" y1="126" x2="160" y2="156" stroke="#5B6C7A" marker-end="url(#arrow)"/>
+
+            <rect x="20" y="158" width="280" height="42" rx="3" fill="#0A0E12" stroke="#6FE4C6"/>
+            <text x="160" y="184" text-anchor="middle" fill="#6FE4C6">Python Backend</text>
+
+            <line x1="160" y1="200" x2="160" y2="230" stroke="#5B6C7A" marker-end="url(#arrow)"/>
+
+            <rect x="20" y="232" width="280" height="42" rx="3" fill="#151E29" stroke="#223040"/>
+            <text x="160" y="258" text-anchor="middle">Databases / Queues</text>
+
+            <line x1="160" y1="274" x2="160" y2="304" stroke="#5B6C7A" marker-end="url(#arrow)"/>
+
+            <rect x="20" y="306" width="280" height="42" rx="3" fill="#151E29" stroke="#223040"/>
+            <text x="160" y="332" text-anchor="middle">Business Logic</text>
+
+            <line x1="160" y1="348" x2="160" y2="378" stroke="#5B6C7A" marker-end="url(#arrow)"/>
+
+            <rect x="20" y="380" width="280" height="34" rx="3" fill="#151E29" stroke="#E8935A"/>
+            <text x="160" y="401" text-anchor="middle" fill="#E8935A">Dashboards / Automation</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="divider">
+    <div class="wrap about-grid">
+      <div class="about-copy">
+        <span class="section-kicker">// about</span>
+        <h2 style="margin-bottom:20px;">Backend first, full stack when the product needs it.</h2>
+        <p>I'm a Python Full Stack Engineer with 3+ years of professional experience building web applications and backend systems.</p>
+        <p>My work has involved Django and REST APIs, GraphQL services, database-driven applications, asynchronous processing, third-party integrations, automation workflows, dashboards, and domain-specific business systems.</p>
+        <p>I've worked on systems ranging from engineering automation and digital commerce workflows to maritime emissions and regulatory compliance platforms.</p>
+        <p>My strongest area is backend development, but I'm comfortable working across the stack when a product requires it.</p>
+      </div>
+      <div>
+        <span class="section-kicker" style="visibility:hidden;">spacer</span>
+        <h3 style="margin-bottom:18px; font-family:var(--sans); font-weight:700; font-size:1rem; color:var(--text-muted);">Focus areas</h3>
+        <ul class="focus-list">
+          <li>Backend Engineering</li>
+          <li>API Development</li>
+          <li>Business Logic</li>
+          <li>System Integration</li>
+          <li>Automation</li>
+          <li>Database Design</li>
+          <li>Data Processing</li>
+          <li>Dashboards</li>
+          <li>Asynchronous Workflows</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="divider">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-kicker">// experience</span>
+        <h2>Where this was built</h2>
+      </div>
+      <div class="exp-card">
+        <div class="exp-top">
+          <span class="exp-role">Full Stack Developer</span>
+          <span class="exp-time mono">Dec 2022 — Dec 2025</span>
+        </div>
+        <span class="exp-org">Zerosoft Technologies</span>
+        <ul class="exp-list">
+          <li>Built and maintained business applications using Python/Django and modern frontend technologies.</li>
+          <li>Developed REST APIs and backend business logic.</li>
+          <li>Worked with relational and NoSQL databases.</li>
+          <li>Integrated external systems and APIs.</li>
+          <li>Built automation workflows.</li>
+          <li>Worked with asynchronous processing using Celery/Redis.</li>
+          <li>Collaborated with clients and internal teams to understand requirements.</li>
+          <li>Worked across development, testing, deployment, and production issue resolution.</li>
+        </ul>
+        <div class="exp-lead">
+          <span class="exp-lead-tag">// later took on project-lead responsibilities</span>
+          <p class="muted" style="font-size:0.95rem;">Task allocation, sprint planning, delivery coordination, client requirements gathering, and mentoring.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="work" class="divider">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-kicker">// featured work</span>
+        <h2>Systems for real problems</h2>
+        <p class="muted" style="margin-top:14px;">Each one below is a working system built to remove a specific, expensive piece of manual effort. Open a project for the full case study — the business problem, the architecture, and what I was responsible for.</p>
+      </div>
+      <div id="projectList"></div>
+    </div>
+  </section>
+
+  <!-- ENGINEERING APPROACH -->
+  <section id="engineering" class="divider">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-kicker">// how I think about systems</span>
+        <h2>Four principles I keep coming back to</h2>
+      </div>
+      <div class="principle-grid">
+        <div class="principle">
+          <span class="idx">01</span>
+          <h3>Understand the business problem</h3>
+          <p>I start by understanding how users actually work and where the existing process creates unnecessary effort.</p>
+        </div>
+        <div class="principle">
+          <span class="idx">02</span>
+          <h3>Keep systems focused</h3>
+          <p>Use existing systems as the source of truth when appropriate instead of unnecessarily replacing them.</p>
+        </div>
+        <div class="principle">
+          <span class="idx">03</span>
+          <h3>Automate repetitive workflows</h3>
+          <p>Use APIs, background processing, webhooks, and automation to reduce manual operations.</p>
+        </div>
+        <div class="principle">
+          <span class="idx">04</span>
+          <h3>Build for real users</h3>
+          <p>Focus on reliability, traceability, usability, permissions, data correctness, and maintainability.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="divider">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-kicker">// technical stack</span>
+        <h2>Tools, grouped by what they're for</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h4>Backend</h4>
+          <ul><li>Python</li><li>Django</li><li>Django REST Framework</li><li>FastAPI</li><li>GraphQL</li></ul>
+        </div>
+        <div class="skill-group">
+          <h4>Databases</h4>
+          <ul><li>MySQL</li><li>MongoDB</li><li>Redis</li></ul>
+        </div>
+        <div class="skill-group">
+          <h4>Async / Integration</h4>
+          <ul><li>Celery</li><li>REST APIs</li><li>Webhooks</li><li>Third-party APIs</li></ul>
+        </div>
+        <div class="skill-group">
+          <h4>Frontend</h4>
+          <ul><li>React</li><li>Next.js</li><li>Redux</li><li>Tailwind CSS</li></ul>
+        </div>
+        <div class="skill-group">
+          <h4>Infrastructure</h4>
+          <ul><li>Docker</li><li>Git</li><li>GitHub Actions</li><li>Azure</li></ul>
+        </div>
+        <div class="skill-group">
+          <h4>Engineering</h4>
+          <ul><li>API Design</li><li>Authentication &amp; RBAC</li><li>Multi-tenant architecture</li><li>Logging</li><li>Data processing</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap contact-inner">
+      <span class="section-kicker">// get in touch</span>
+      <h2>Have a backend problem worth solving?</h2>
+      <p class="lede">I'm interested in backend engineering, platform engineering, automation, data-driven systems, and challenging product problems.</p>
+      <div class="contact-btns">
+        <a href="mailto:hello@example.com" class="btn btn-primary">Email me</a>
+        <a href="#" class="btn btn-secondary" id="resumeBtn">Download resume</a>
+        <a href="https://linkedin.com/in/replace-me" class="btn btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/replace-me" class="btn btn-secondary" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Devi Bala M — built with intent, not a template. © 2026</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- Nav toggle ----------
+  var navToggle = document.getElementById('navToggle');
+  var navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', function(){
+    var open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ navLinks.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); });
+  });
+
+  // ---------- Resume placeholder ----------
+  document.getElementById('resumeBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    alert('Resume link not configured yet — add your PDF URL to the RESUME_URL placeholder in the source.');
+  });
+  // window.RESUME_URL = "/resume.pdf"; // set this and update resumeBtn href to enable direct download
+
+  // ======================================================================
+  // PROJECT DATA
+  // Structured so this content can be lifted directly into a Next.js
+  // `data/projects.ts` file later (see spec section 17).
+  // ======================================================================
+  var projects = [
+    {
+      id: "cad",
+      num: "01",
+      category: "Engineering Automation · Legacy System Integration",
+      title: "CAD / Kitchen Hood Drawing Generator",
+      description: "A Django-based engineering automation system that integrates with an existing PHP CRM and automatically generates manufacturing-ready CAD drawings from project specifications.",
+      impact: [
+        { value: "~80%", label: "reduction in manual drafting effort" },
+        { value: "1hr → <5s", label: "drawing generation time" }
+      ],
+      diagram: {
+        caption: "CRM job data flows into Django, which prefills, generates, and outputs a DXF drawing",
+        nodes: ["PHP CRM", "Django Application (REST API)", "Fetch Job Specifications", "Pre-filled Drawing Form", "Engineer Reviews / Adjusts", "Drawing Generation Engine", "DXF File", "AutoCAD / LibreCAD / DraftSight"]
+      },
+      tabs: [
+        {
+          key: "problem", label: "Business Problem",
+          html: "<p>Engineers previously had to manually enter project and hood specifications into the drawing workflow, even though the existing PHP CRM already held the required project and customer information.</p><p>The goal was to eliminate that duplicate data entry and automate CAD drawing generation from information that already existed in the CRM.</p>"
+        },
+        {
+          key: "workflow", label: "Existing Workflow",
+          html: "<p>Before this system, sales entered project information into the PHP CRM, and an engineer separately re-entered the same specifications by hand into the drawing tool — a duplicate, error-prone step for every job.</p>"
+        },
+        {
+          key: "solution", label: "Solution",
+          html: "<p>A Django application that reads a job ID or job name from the CRM, retrieves the relevant specifications over a REST API, and pre-fills a drawing form the engineer can review and adjust before generation.</p>"
+        },
+        {
+          key: "architecture", label: "Architecture",
+          html: "<p>The CRM remains the system of record for project and customer data. Django is a specialized service layer that sits alongside it, purpose-built for CAD generation rather than general business data management.</p>"
+        },
+        {
+          key: "dataflow", label: "Data Flow",
+          html: "<p>Sales enters project information → stored in the PHP CRM → engineer clicks \"Generate Drawing\" → Django receives the job ID → Django retrieves project information → the drawing form is automatically populated → engineer reviews and modifies data → Django generates a DXF file → engineer downloads the manufacturing drawing.</p>"
+        },
+        {
+          key: "responsibilities", label: "My Responsibilities",
+          html: "<p>I worked on the Django integration layer, the REST API connection to the PHP CRM, the drawing-configuration logic, and the DXF generation engine — including automated dimensions, plan/elevation/section views, drawing schedules, and custom components.</p>"
+        },
+        {
+          key: "tech", label: "Technologies",
+          html: "", tags: ["Django", "Python", "REST API", "PHP CRM Integration", "ezdxf", "JSON-based configuration"]
+        },
+        {
+          key: "challenges", label: "Engineering Challenges",
+          html: "<p>The main challenge was engineering-specific drawing logic — generating correct dimensions, views, and schedules automatically from structured job data, rather than from a human drafting each one by hand.</p>"
+        },
+        {
+          key: "decisions", label: "Key Decisions",
+          html: "<p><b style='color:var(--text)'>Why Django wasn't built as a replacement for the CRM:</b> the CRM remained the source of truth, and Django specialized in CAD generation only. This separation avoided duplicating CRM functionality and let the drawing-generation logic evolve independently of the CRM.</p>"
+        },
+        {
+          key: "outcome", label: "Outcome",
+          html: "<p>Manual drafting effort dropped by roughly 80%, and drawing generation time went from about an hour to under five seconds per job.</p>"
+        }
+      ],
+      roleNote: "The platform supported the full CRM-to-drawing workflow. I worked on the Django integration and drawing-generation logic that sits within it."
+    },
+    {
+      id: "game",
+      num: "02",
+      category: "Backend Automation · Webhooks · Async Processing",
+      title: "Game Key Purchase Automation",
+      description: "An automated digital-product fulfillment workflow connecting marketplace webhooks, Microsoft APIs, background workers, and the fulfillment process.",
+      impact: [
+        { value: "70%+", label: "reduction in manual operational work" }
+      ],
+      diagram: {
+        caption: "A marketplace webhook triggers validation, an async purchase task, and fulfillment",
+        nodes: ["Marketplace (Webhook)", "Django / GraphQL Backend", "Validate Purchase", "Celery Task", "Microsoft API", "Purchase / Key Retrieval", "Validation", "Fulfillment"]
+      },
+      tabs: [
+        {
+          key: "problem", label: "Business Problem",
+          html: "<p>Fulfilling digital game-key purchases by hand — watching for marketplace orders, purchasing keys through Microsoft's systems, and delivering them — didn't scale and was easy to get wrong under load.</p>"
+        },
+        {
+          key: "workflow", label: "Existing Workflow",
+          html: "<p>Marketplace events had to be watched and acted on manually, with purchase and retrieval steps handled as separate, disconnected actions rather than a single traceable process.</p>"
+        },
+        {
+          key: "solution", label: "Solution",
+          html: "<p>A webhook-driven backend: marketplace events land on a Django/GraphQL endpoint, get validated, and are handed to a Celery task that talks to the Microsoft API to purchase and retrieve the key before fulfillment.</p>"
+        },
+        {
+          key: "architecture", label: "Architecture",
+          html: "<p>Webhook receipt and validation are kept in the request/response path; the slower, failure-prone work of talking to an external API is pushed into a Celery background task backed by Redis.</p>"
+        },
+        {
+          key: "dataflow", label: "Data Flow",
+          html: "<p>Marketplace webhook → Django/GraphQL backend → validate purchase → Celery task → Microsoft API → purchase / key retrieval → validation → fulfillment.</p>"
+        },
+        {
+          key: "responsibilities", label: "My Responsibilities",
+          html: "<p>I worked on the webhook handling, the Celery task pipeline, the Microsoft API integration, retry and backoff handling, and structured logging across the workflow.</p>"
+        },
+        {
+          key: "tech", label: "Technologies",
+          html: "", tags: ["Python", "Django", "GraphQL", "Django ORM", "MySQL", "Celery", "Redis", "Webhooks", "Microsoft API", "Structured logging"]
+        },
+        {
+          key: "challenges", label: "Engineering Challenges",
+          html: "<p>External API calls fail intermittently. The workflow needed to retry sensibly — without hammering the external service, and without leaving a purchase half-completed.</p>",
+          concepts: [
+            { title: "Webhook-driven architecture", body: "External marketplace events trigger backend processing." },
+            { title: "Asynchronous processing", body: "Long-running or failure-prone operations are moved into background workers." },
+            { title: "Retry handling", body: "Temporary external API failures can be retried rather than immediately failing the entire workflow." },
+            { title: "Exponential backoff", body: "Retries are spaced progressively to avoid hammering external services." },
+            { title: "Structured logging", body: "Important workflow events and failures can be traced systematically." }
+          ]
+        },
+        {
+          key: "decisions", label: "Key Decisions",
+          html: "<p>Separating validation (fast, synchronous) from fulfillment (slower, external, retryable) kept the webhook endpoint responsive while making failures recoverable rather than silent.</p>"
+        },
+        {
+          key: "outcome", label: "Outcome",
+          html: "<p>Manual operational work on fulfillment dropped by more than 70%.</p>"
+        }
+      ],
+      roleNote: "The platform supported end-to-end webhook-to-fulfillment automation. I worked on the backend processing, async task pipeline, and external API integration."
+    },
+    {
+      id: "marine",
+      num: "03",
+      category: "Data Platform · Maritime Analytics · Regulatory Compliance",
+      title: "Marine Emission &amp; Compliance Management Platform",
+      description: "A data-driven maritime platform used by shipping-industry organizations to process vessel and voyage data, calculate emissions, evaluate regulatory compliance, and visualize fleet and vessel performance.",
+      impact: [],
+      diagram: {
+        caption: "Excel voyage data is classified in Azure, stored in MongoDB, then split into emission and compliance calculations feeding a fleet/vessel/voyage dashboard",
+        nodes: ["Shipping Operations", "Reporting Tool (Excel)", "Azure Logic App — Processing & Classification", "MongoDB", "Emission Calculations", "Compliance Calculations (EU · UK · IMO)", "Backend / APIs", "Analytics Dashboard (Fleet / Vessel / Voyage)"]
+      },
+      tabs: [
+        {
+          key: "problem", label: "Business Problem",
+          html: "<p>Shipping organizations need to track vessel and voyage-level data, calculate emissions, and evaluate compliance against several overlapping regulatory frameworks — by hand, this is slow and hard to keep consistent across a fleet.</p>"
+        },
+        {
+          key: "workflow", label: "Existing Workflow",
+          html: "<p>The platform receives vessel operational data from a reporting tool in Excel format — vessel information, voyage information, machinery information, fuel consumption, and other operational measurements.</p>"
+        },
+        {
+          key: "solution", label: "Solution",
+          html: "<p>Incoming Excel data is processed and classified by an Azure Logic App before being stored in MongoDB. From there, the platform runs emission calculations and compliance calculations across vessels and voyages, and surfaces the results in a dashboard.</p>"
+        },
+        {
+          key: "architecture", label: "Architecture",
+          html: "<p>Data ingestion, calculation, and presentation are kept as distinct stages: Azure handles processing/classification, MongoDB holds the classified data, and separate calculation paths feed emissions and each compliance module before reaching the dashboard APIs.</p>"
+        },
+        {
+          key: "dataflow", label: "Data Flow",
+          html: "<p>Shipping operations → reporting tool → Excel data → Azure Logic App (processing / classification) → MongoDB → emission calculations and compliance calculations (EU, UK, IMO) → backend / APIs → analytics dashboard (fleet, vessel, voyage level).</p>"
+        },
+        {
+          key: "responsibilities", label: "My Responsibilities",
+          html: "<p>I worked on backend processing and API layers connecting MongoDB to the calculation logic and the dashboard, and on supporting features including the reporting-tool generator, compliance data export, and multi-tenant access control.</p>"
+        },
+        {
+          key: "tech", label: "Technologies",
+          html: "", tags: ["Python", "Django", "MongoDB", "Azure Logic Apps", "REST APIs", "Multi-tenant architecture", "RBAC"]
+        },
+        {
+          key: "challenges", label: "Engineering Challenges",
+          html: "<p>Supporting multiple regulatory frameworks (EU ETS, FuelEU, EU MRV, UK MRV, IMO/DCS, CII, UK ETS) as separate calculation and reporting modules, while keeping a single consistent data model underneath, across a multi-tenant hierarchy of companies, fleets, vessels, and users.</p>"
+        },
+        {
+          key: "decisions", label: "Key Decisions",
+          html: "<p>Modeling compliance frameworks as independent calculation/reporting modules — rather than one combined calculation — kept each regulation's logic isolated and easier to reason about and extend.</p>"
+        },
+        {
+          key: "outcome", label: "Outcome",
+          html: "<p>A working platform giving shipping organizations fleet-, vessel-, and voyage-level visibility into emissions and compliance status across multiple regulatory frameworks, with company-level multi-tenant access control.</p>"
+        }
+      ],
+      roleNote: "The platform supported ingestion, emission and compliance calculation, and fleet analytics end to end. I worked on backend processing, APIs, and several platform features described below — not the entire system in isolation.",
+      extras: true
+    }
+  ];
+
+  var complianceModules = [
+    { key:"EU ETS", body:"EU Emissions Trading System — compliance calculations for vessel emissions falling under the EU's carbon trading scheme." },
+    { key:"FuelEU", body:"FuelEU Maritime — tracks the greenhouse-gas intensity of fuel used on board against required limits." },
+    { key:"EU MRV", body:"EU Monitoring, Reporting and Verification — CO2 emissions reporting for voyages calling at EU ports." },
+    { key:"UK MRV", body:"The UK's equivalent monitoring, reporting, and verification scheme for vessel emissions." },
+    { key:"IMO / DCS", body:"IMO Data Collection System — global fuel-consumption reporting requirements set by the International Maritime Organization." },
+    { key:"CII", body:"Carbon Intensity Indicator — rates a vessel's operational carbon efficiency on an annual basis." },
+    { key:"UK ETS", body:"UK Emissions Trading Scheme — the UK's domestic carbon-trading compliance calculations for shipping." }
+  ];
+
+  // ======================================================================
+  // RENDER PROJECTS
+  // ======================================================================
+  var listEl = document.getElementById('projectList');
+
+  function diagramSVG(nodes, idPrefix){
+    var boxH = 40, gap = 24, w = 620;
+    var totalH = nodes.length * boxH + (nodes.length - 1) * gap + 20;
+    var svg = '<svg viewBox="0 0 ' + w + ' ' + totalH + '" role="img" aria-label="Flow diagram: ' + nodes.join(' to ') + '">';
+    svg += '<defs><marker id="' + idPrefix + 'arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5B6C7A"/></marker></defs>';
+    var y = 10;
+    nodes.forEach(function(n, i){
+      var isFirst = i === 0, isLast = i === nodes.length - 1;
+      var stroke = isFirst ? '#223040' : (isLast ? '#E8935A' : '#223040');
+      var fill = '#151E29';
+      var textFill = isLast ? '#E8935A' : '#E7EDF2';
+      svg += '<rect x="10" y="' + y + '" width="' + (w-20) + '" height="' + boxH + '" rx="3" fill="' + fill + '" stroke="' + stroke + '"/>';
+      svg += '<text x="' + (w/2) + '" y="' + (y + boxH/2 + 4) + '" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="' + textFill + '">' + n + '</text>';
+      y += boxH;
+      if(!isLast){
+        svg += '<line class="flow-path" data-idx="'+i+'" x1="' + (w/2) + '" y1="' + y + '" x2="' + (w/2) + '" y2="' + (y+gap) + '" stroke="#5B6C7A" stroke-width="1.5" marker-end="url(#' + idPrefix + 'arrow)"/>';
+        y += gap;
+      }
+    });
+    svg += '</svg>';
+    return svg;
+  }
+
+  function tabsHTML(project){
+    var tabBtns = project.tabs.map(function(t, i){
+      return '<button class="cs-tab' + (i===0?' active':'') + '" data-tab="' + t.key + '" role="tab" aria-selected="' + (i===0) + '">' + t.label + '</button>';
+    }).join('');
+
+    var panels = project.tabs.map(function(t, i){
+      var inner = t.html || '';
+      if(t.tags){
+        inner += '<div class="tech-tags">' + t.tags.map(function(x){ return '<span>' + x + '</span>'; }).join('') + '</div>';
+      }
+      if(t.concepts){
+        inner += '<div class="concept-grid" style="margin-top:18px;">' + t.concepts.map(function(c){
+          return '<div class="concept-card"><b>' + c.title + '</b><span>' + c.body + '</span></div>';
+        }).join('') + '</div>';
+      }
+      return '<div class="cs-panel' + (i===0?' active':'') + '" data-panel="' + t.key + '" role="tabpanel">' + inner + '</div>';
+    }).join('');
+
+    return '<div class="cs-tabs" role="tablist">' + tabBtns + '</div><div class="cs-panels">' + panels + '</div>';
+  }
+
+  function complianceSelectorHTML(){
+    var chips = complianceModules.map(function(m, i){
+      return '<button class="compliance-chip' + (i===0?' active':'') + '" data-mod="' + m.key + '">' + m.key + '</button>';
+    }).join('');
+    var first = complianceModules[0];
+    return '<div style="margin-top:30px;">' +
+      '<h4 style="font-family:var(--sans); font-weight:700; font-size:0.95rem; margin-bottom:14px; color:var(--text);">Compliance modules supported</h4>' +
+      '<div class="compliance-selector">' + chips + '</div>' +
+      '<div class="compliance-detail" id="complianceDetail"><h4>' + first.key + '</h4><p class="muted">' + first.body + '</p></div>' +
+      '</div>';
+  }
+
+  function illustrativeDashboardHTML(){
+    var bars = [62,80,45,70,55,90,38,66].map(function(h){ return '<div class="bar" style="height:'+h+'%"></div>'; }).join('');
+    return '<div style="margin-top:30px;">' +
+      '<span class="illustrative-tag">Illustrative visualization — sample data only</span>' +
+      '<div class="diagram-wrap" style="padding:20px;">' +
+      '<p class="mono faint" style="margin-bottom:6px;">Fleet emissions by vessel — demo data</p>' +
+      '<div class="mini-chart">' + bars + '</div>' +
+      '</div></div>';
+  }
+
+  projects.forEach(function(project, index){
+    var card = document.createElement('div');
+    card.className = 'project-card';
+
+    var impactHTML = '';
+    if(project.impact.length){
+      impactHTML = '<div class="impact-strip">' + project.impact.map(function(it){
+        return '<div class="item"><b>' + it.value + '</b><span>' + it.label + '</span></div>';
+      }).join('') + '</div>';
+    }
+
+    card.innerHTML =
+      '<button class="project-head" aria-expanded="false" aria-controls="body-' + project.id + '">' +
+        '<span class="project-num mono">' + project.num + '</span>' +
+        '<span>' +
+          '<span class="project-cat">' + project.category + '</span>' +
+          '<span class="project-title">' + project.title + '</span>' +
+          '<span class="project-desc">' + project.description + '</span>' +
+        '</span>' +
+        '<span class="project-toggle" aria-hidden="true">+</span>' +
+      '</button>' +
+      '<div class="project-body" id="body-' + project.id + '">' +
+        '<div class="project-body-inner">' +
+          impactHTML +
+          '<div class="diagram-wrap">' + diagramSVG(project.diagram.nodes, project.id) + '</div>' +
+          '<p class="diagram-caption">' + project.diagram.caption + '</p>' +
+          tabsHTML(project) +
+          '<div class="role-callout"><b>My role:</b> ' + project.roleNote + '</div>' +
+          (project.extras ? complianceSelectorHTML() + illustrativeDashboardHTML() : '') +
+        '</div>' +
+      '</div>';
+
+    listEl.appendChild(card);
+
+    var head = card.querySelector('.project-head');
+    var body = card.querySelector('.project-body');
+    head.addEventListener('click', function(){
+      var expanded = head.getAttribute('aria-expanded') === 'true';
+      head.setAttribute('aria-expanded', String(!expanded));
+      if(expanded){
+        body.style.maxHeight = null;
+      } else {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        // recalc after fonts/images settle
+        setTimeout(function(){ body.style.maxHeight = body.scrollHeight + 'px'; }, 60);
+        animateDiagram(card);
+      }
+    });
+
+    // tab switching
+    card.querySelectorAll('.cs-tab').forEach(function(tab){
+      tab.addEventListener('click', function(){
+        var key = tab.getAttribute('data-tab');
+        card.querySelectorAll('.cs-tab').forEach(function(t){ t.classList.toggle('active', t===tab); t.setAttribute('aria-selected', t===tab); });
+        card.querySelectorAll('.cs-panel').forEach(function(p){ p.classList.toggle('active', p.getAttribute('data-panel')===key); });
+        if(head.getAttribute('aria-expanded') === 'true'){
+          setTimeout(function(){ body.style.maxHeight = body.scrollHeight + 'px'; }, 30);
+        }
+      });
+    });
+
+    // compliance chip switching (marine project only)
+    var chips = card.querySelectorAll('.compliance-chip');
+    if(chips.length){
+      chips.forEach(function(chip){
+        chip.addEventListener('click', function(){
+          chips.forEach(function(c){ c.classList.toggle('active', c===chip); });
+          var mod = complianceModules.filter(function(m){ return m.key === chip.getAttribute('data-mod'); })[0];
+          var detail = card.querySelector('#complianceDetail');
+          detail.innerHTML = '<h4>' + mod.key + '</h4><p class="muted">' + mod.body + '</p>';
+          if(head.getAttribute('aria-expanded') === 'true'){
+            setTimeout(function(){ body.style.maxHeight = body.scrollHeight + 'px'; }, 30);
+          }
+        });
+      });
+    }
+  });
+
+  function animateDiagram(card){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce) return;
+    var paths = card.querySelectorAll('.flow-path');
+    paths.forEach(function(p, i){
+      p.classList.remove('animate');
+      void p.offsetWidth; // reflow to restart animation
+      setTimeout(function(){ p.classList.add('animate'); }, i * 90);
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>
